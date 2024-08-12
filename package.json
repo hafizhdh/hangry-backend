@@ -1,0 +1,23 @@
+{
+  "name": "hangry-backend",
+  "version": "1.0.0",
+  "description": "Simple backend for managing user data",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app",
+    "dev": "nodemon src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hafizh",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.2.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
