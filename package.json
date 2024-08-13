@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.5"
   }
 }
