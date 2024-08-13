@@ -1,14 +1,22 @@
 import http from "http"
 import * as dotenv from "dotenv"
-import { getAllUser } from "./user/user.controller"
+import { getAllUser, getUser } from "./user/user.controller"
 
 dotenv.config()
 
 const server = http.createServer((req, res) => {
+  // /api/user
   if (req.url === '/api/user') {
     if (req.method === 'GET') {
       getAllUser(req, res)
     }
+  } 
+  // /api/user/:id
+  else if (req.url?.match(/\/api\/user\/(.*)/) && req.url.split("/").length === 4) {
+    const id = req.url.split("/")[3]
+    if (req.method === 'GET') {
+      getUser(req, res, id)
+    } 
   } else {
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
