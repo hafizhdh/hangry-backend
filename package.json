@@ -9,6 +9,9 @@
     "dev": "nodemon src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "prisma": {
+    "seed": "ts-node-esm src/seed.ts"
+  },
   "author": "Hafizh",
   "license": "ISC",
   "devDependencies": {
