@@ -1,6 +1,6 @@
 import http from "http"
 import * as dotenv from "dotenv"
-import { getAllUser, getUser } from "./user/user.controller"
+import { createUser, getAllUser, getUser } from "./user/user.controller"
 
 dotenv.config()
 
@@ -9,6 +9,8 @@ const server = http.createServer((req, res) => {
   if (req.url === '/api/user') {
     if (req.method === 'GET') {
       getAllUser(req, res)
+    } else if (req.method === 'POST') {
+      createUser(req, res)
     }
   } 
   // /api/user/:id

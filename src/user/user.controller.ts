@@ -1,6 +1,8 @@
 import http from "http"
-import { getUserById, getUsers } from "./user.service"
+import { create, getUserById, getUsers } from "./user.service"
 import HttpException from "../model/http-exception.model"
+import { getRequestBody } from "../utils"
+import { error } from "console"
 
 // GET /api/user
 // Retrieve all users data
@@ -31,7 +33,29 @@ const getUser = async (req: http.IncomingMessage, res: http.ServerResponse, id: 
   }
 }
 
+// POST /api/user
+// Create new user
+const createUser = async (req: http.IncomingMessage, res: http.ServerResponse) => {
+  
+  await getRequestBody(req)
+    .then(async (body) => {
+      if (!body) {
+        throw new HttpException(400, "Missing properties")
+      }
+      const dto = JSON.parse(body)
+      const user = await create(dto)
+      res.writeHead(201, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(user))
+    })
+    .catch(error => {
+      res.writeHead(error.errorCode, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify({message: error.message}))
+    })
+  
+}
+
 export {
   getAllUser,
-  getUser
+  getUser,
+  createUser
 }
