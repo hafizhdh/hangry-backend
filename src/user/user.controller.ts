@@ -1,8 +1,7 @@
 import http from "http"
-import { create, getUserById, getUsers } from "./user.service"
+import { create, getUserById, getUsers, update } from "./user.service"
 import HttpException from "../model/http-exception.model"
 import { getRequestBody } from "../utils"
-import { error } from "console"
 
 // GET /api/user
 // Retrieve all users data
@@ -54,8 +53,33 @@ const createUser = async (req: http.IncomingMessage, res: http.ServerResponse) =
   
 }
 
+// PUT /api/user
+// Update user data
+const updateUser = async (req: http.IncomingMessage, res: http.ServerResponse, id: string | undefined) => {
+
+  if (!id || !id?.match(/[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/)) {
+    throw new HttpException(400, "Invalid user id")
+  }
+
+  await getRequestBody(req)
+  .then(async (body) => {
+    if (!body) {
+      throw new HttpException(400, "Missing properties")
+    }
+    const dto = JSON.parse(body)
+    const updatedUser = await update(dto, id)
+    res.writeHead(200, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify(updatedUser))
+  })
+  .catch(error => {
+    res.writeHead(error.errorCode, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify({message: error.message}))
+  })
+} 
+
 export {
   getAllUser,
   getUser,
-  createUser
+  createUser,
+  updateUser
 }
