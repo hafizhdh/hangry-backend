@@ -41,8 +41,10 @@ const server = http.createServer((req, res) => {
   }
 })
 
-const PORT = process.env.PORT || 7878
+const PORT = parseInt(process.env.PORT || '7878')
+const env = process.env.NODE_ENV || "development"
+const host = env === "development" ? "localhost" : "0.0.0.0"
 
-server.listen(PORT, () => {
+server.listen(PORT, host, () => {
   console.log(`Listening on port ${PORT}`)
 })
