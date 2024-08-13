@@ -1,6 +1,6 @@
 import http from "http"
 import * as dotenv from "dotenv"
-import { createUser, getAllUser, getUser, updateUser } from "./user/user.controller"
+import { createUser, deleteUser, getAllUser, getUser, updateUser } from "./user/user.controller"
 
 dotenv.config()
 
@@ -20,6 +20,8 @@ const server = http.createServer((req, res) => {
       getUser(req, res, id)
     } else if (req.method === 'PUT') {
       updateUser(req, res, id)
+    } else if (req.method === 'DELETE') {
+      deleteUser(req, res, id)
     }
   } else {
     res.statusCode = 200

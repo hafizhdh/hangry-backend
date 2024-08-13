@@ -1,5 +1,5 @@
 import http from "http"
-import { create, getUserById, getUsers, update } from "./user.service"
+import { create, getUserById, getUsers, remove, update } from "./user.service"
 import HttpException from "../model/http-exception.model"
 import { getRequestBody } from "../utils"
 
@@ -75,11 +75,29 @@ const updateUser = async (req: http.IncomingMessage, res: http.ServerResponse, i
     res.writeHead(error.errorCode, {'Content-Type': 'application/json'})
     res.end(JSON.stringify({message: error.message}))
   })
-} 
+}
+
+// DELETE /api/user
+// Delete an user
+const deleteUser = async (req: http.IncomingMessage, res: http.ServerResponse, id: string | undefined) => {
+  if (!id || !id?.match(/[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/)) {
+    throw new HttpException(400, "Invalid user id")
+  }
+  
+  try {
+    await remove(id)
+    res.writeHead(200, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify({"message": "Successfully delete an user"}))
+  } catch (error: any) {
+    res.writeHead(error.errorCode, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify({message: error.message}))
+  }
+}
 
 export {
   getAllUser,
   getUser,
   createUser,
-  updateUser
+  updateUser,
+  deleteUser
 }

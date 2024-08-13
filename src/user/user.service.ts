@@ -84,3 +84,21 @@ export const update = async (dto: userDataDTO, id: string) => {
 
   return updatedUser
 }
+
+export const remove = async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id
+    }
+  })
+  
+  if (!user) {
+    throw new HttpException(404, "User not found")
+  }
+
+  await prisma.user.delete({
+    where: {
+      id: id
+    }
+  })
+}
