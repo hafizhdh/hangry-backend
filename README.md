@@ -60,7 +60,6 @@ Or you can set up the database in docker container and run previous command
 ```
 docker-compose up -d
 ```
-and run previous command
 
 5. Start the application in development mode
 ```
