@@ -327,4 +327,22 @@ This section provides detailed information on how to interact with our APIs for 
 |404|User not found|
 
 ### Run in Postman
+For more practical testing, you can refer to this postman collection.
+
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/23438759-c3f8093b-e427-4530-8b2f-8de68b07a90e?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D23438759-c3f8093b-e427-4530-8b2f-8de68b07a90e%26entityType%3Dcollection%26workspaceId%3D3a215f11-1120-469a-a123-5f7b572679c2#?env%5Bhangry%5D=W3sia2V5IjoiYmFzZV91cmwiLCJ2YWx1ZSI6Imh0dHA6Ly9sb2NhbGhvc3Q6Nzg3OCIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo3ODc4Iiwic2Vzc2lvbkluZGV4IjowfV0=)
+
+## Deployment
+This section will contain information about how this backend is deployed and accessible to all users on the internet.
+### Technology stack
+- [Google Cloud Run](https://cloud.google.com/run?hl=en)
+- [Supabase](https://supabase.com/)
+  
+We decided to deploy this backend to the serverless service provided by Google Cloud Platform. That's because we don't really want to mess up with the infrastructure behind it.
+
+For database, we are using Supabse as cloud SQL database for better flexibility.
+
+### Automated Deployment
+This backend use [Cloud Build](https://cloud.google.com/build?hl=en) for serverless CI/CD. That means every change pushed into the `main` branch will trigger a cloud build and create a new revision for the backend service.
+
+### Deployed Link
+[hangry-backend](https://hangry-backend-qmpzoue2ma-et.a.run.app)
